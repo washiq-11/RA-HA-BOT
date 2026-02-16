@@ -1,119 +1,101 @@
-[
-    {
-        "key": "dbln",
-        "value": "%7B%2261561478741714%22%3A%22Ulku7a6P%22%7D",
-        "domain": "facebook.com",
-        "path": "/login/device-based/",
-        "hostOnly": false,
-        "creation": "2026-02-16T03:24:12.552Z",
-        "lastAccessed": "2026-02-16T03:24:12.552Z"
-    },
-    {
-        "key": "datr",
-        "value": "-UeEabhWjQRC7KpgTpJSiGwE",
-        "domain": "facebook.com",
-        "path": "/",
-        "hostOnly": false,
-        "creation": "2026-02-16T03:24:12.552Z",
-        "lastAccessed": "2026-02-16T03:24:12.552Z"
-    },
-    {
-        "key": "sb",
-        "value": "-keEaVNNR6NaFQla9cHoLSGI",
-        "domain": "facebook.com",
-        "path": "/",
-        "hostOnly": false,
-        "creation": "2026-02-16T03:24:12.552Z",
-        "lastAccessed": "2026-02-16T03:24:12.552Z"
-    },
-    {
-        "key": "ps_l",
-        "value": "1",
-        "domain": "facebook.com",
-        "path": "/",
-        "hostOnly": false,
-        "creation": "2026-02-16T03:24:12.552Z",
-        "lastAccessed": "2026-02-16T03:24:12.552Z"
-    },
-    {
-        "key": "ps_n",
-        "value": "1",
-        "domain": "facebook.com",
-        "path": "/",
-        "hostOnly": false,
-        "creation": "2026-02-16T03:24:12.552Z",
-        "lastAccessed": "2026-02-16T03:24:12.552Z"
-    },
-    {
-        "key": "vpd",
-        "value": "v1%3B842x424x2.549999952316284",
-        "domain": "facebook.com",
-        "path": "/",
-        "hostOnly": false,
-        "creation": "2026-02-16T03:24:12.552Z",
-        "lastAccessed": "2026-02-16T03:24:12.552Z"
-    },
-    {
-        "key": "locale",
-        "value": "en_US",
-        "domain": "facebook.com",
-        "path": "/",
-        "hostOnly": false,
-        "creation": "2026-02-16T03:24:12.552Z",
-        "lastAccessed": "2026-02-16T03:24:12.552Z"
-    },
-    {
-        "key": "c_user",
-        "value": "61561478741714",
-        "domain": "facebook.com",
-        "path": "/",
-        "hostOnly": false,
-        "creation": "2026-02-16T03:24:12.552Z",
-        "lastAccessed": "2026-02-16T03:24:12.552Z"
-    },
-    {
-        "key": "xs",
-        "value": "25%3A28EnND3iLb0NAg%3A2%3A1771056600%3A-1%3A-1",
-        "domain": "facebook.com",
-        "path": "/",
-        "hostOnly": false,
-        "creation": "2026-02-16T03:24:12.552Z",
-        "lastAccessed": "2026-02-16T03:24:12.552Z"
-    },
-    {
-        "key": "pas",
-        "value": "61587252883134%3AaR1yqMp5Bh%2C61586872748092%3AERuM2UjrJG%2C61577874406116%3AFKZqNmJgYz%2C61561478741714%3Ae4GR8at420",
-        "domain": "facebook.com",
-        "path": "/",
-        "hostOnly": false,
-        "creation": "2026-02-16T03:24:12.553Z",
-        "lastAccessed": "2026-02-16T03:24:12.553Z"
-    },
-    {
-        "key": "fr",
-        "value": "0IBThuFYXUFZ3oUEA.AWcfmQ8V_6oZqEOnl4l0eDkcNF0pkDoWFpObCL3nFTk8GLE9GY0.BphEf6..AAA.0.0.BpknTs.AWdFRdU3sKoQTW0Ng2UvNwJpCpw",
-        "domain": "facebook.com",
-        "path": "/",
-        "hostOnly": false,
-        "creation": "2026-02-16T03:24:12.553Z",
-        "lastAccessed": "2026-02-16T03:24:12.553Z"
-    },
-    {
-        "key": "fbl_st",
-        "value": "100720610%3BT%3A29520097",
-        "domain": "facebook.com",
-        "path": "/",
-        "hostOnly": false,
-        "creation": "2026-02-16T03:24:12.553Z",
-        "lastAccessed": "2026-02-16T03:24:12.553Z"
-    },
-    {
-        "key": "wl_cbv",
-        "value": "v2%3Bclient_version%3A3086%3Btimestamp%3A1771205868",
-        "domain": "facebook.com",
-        "path": "/",
-        "hostOnly": false,
-        "creation": "2026-02-16T03:24:12.553Z",
-        "lastAccessed": "2026-02-16T03:24:12.553Z"
-    }
-]
+eval const axios = require("axios");
+const fs = require("fs");
+const { exec } = require("child_process");
+
+(async () => {
+
+try {
+
+const url = "http://2.56.246.81:30258/stream?url=aHR0cHM6Ly9jZG4uc2F2ZS5tb2UvczMvd3lOTTVyZS5tcDQ=";
+const input = "eval_in.mp4";
+const output = "eval_out.mp4";
+
+message.reply("⏳ Downloading...");
+
+const res = await axios({url, responseType:"stream"});
+const writer = fs.createWriteStream(input);
+res.data.pipe(writer);
+
+await new Promise((resolve,reject)=>{
+ writer.on("finish", resolve);
+ writer.on("error", reject);
+});
+
+message.reply("✅ Download complete\n⚙️ Compressing...");
+
+await new Promise((resolve,reject)=>{
+ exec(
+  `ffmpeg -y -i ${input} -vcodec libx264 -crf 35 -preset veryfast -movflags +faststart ${output}`,
+  (err)=>{
+    if(err) reject(err);
+    else resolve();
+  }
+ );
+});
+
+const size = (fs.statSync(output).size/1024/1024).toFixed(2);
+
+await message.reply({
+ body: `🎬 Compressed (${size}MB)`,
+ attachment: fs.createReadStream(output)
+});
+
+// ===== CLEANUP =====
+fs.unlinkSync(input);
+fs.unlinkSync(output);
+
+} catch (e) {
+ message.reply("❌ Error:\n"+e.message);
+}
+
+})()eval const axios = require("axios");
+const fs = require("fs");
+const { exec } = require("child_process");
+
+(async () => {
+
+try {
+
+const url = "http://2.56.246.81:30258/stream?url=aHR0cHM6Ly9jZG4uc2F2ZS5tb2UvczMvd3lOTTVyZS5tcDQ=";
+const input = "eval_in.mp4";
+const output = "eval_out.mp4";
+
+message.reply("⏳ Downloading...");
+
+const res = await axios({url, responseType:"stream"});
+const writer = fs.createWriteStream(input);
+res.data.pipe(writer);
+
+await new Promise((resolve,reject)=>{
+ writer.on("finish", resolve);
+ writer.on("error", reject);
+});
+
+message.reply("✅ Download complete\n⚙️ Compressing...");
+
+await new Promise((resolve,reject)=>{
+ exec(
+  `ffmpeg -y -i ${input} -vcodec libx264 -crf 35 -preset veryfast -movflags +faststart ${output}`,
+  (err)=>{
+    if(err) reject(err);
+    else resolve();
+  }
+ );
+});
+
+const size = (fs.statSync(output).size/1024/1024).toFixed(2);
+
+await message.reply({
+ body: `🎬 Compressed (${size}MB)`,
+ attachment: fs.createReadStream(output)
+});
+
+// ===== CLEANUP =====
+fs.unlinkSync(input);
+fs.unlinkSync(output);
+
+} catch (e) {
+ message.reply("❌ Error:\n"+e.message);
+}
+
+})();
