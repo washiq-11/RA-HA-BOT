@@ -1,101 +1,137 @@
-eval const axios = require("axios");
-const fs = require("fs");
-const { exec } = require("child_process");
-
-(async () => {
-
-try {
-
-const url = "http://2.56.246.81:30258/stream?url=aHR0cHM6Ly9jZG4uc2F2ZS5tb2UvczMvd3lOTTVyZS5tcDQ=";
-const input = "eval_in.mp4";
-const output = "eval_out.mp4";
-
-message.reply("⏳ Downloading...");
-
-const res = await axios({url, responseType:"stream"});
-const writer = fs.createWriteStream(input);
-res.data.pipe(writer);
-
-await new Promise((resolve,reject)=>{
- writer.on("finish", resolve);
- writer.on("error", reject);
-});
-
-message.reply("✅ Download complete\n⚙️ Compressing...");
-
-await new Promise((resolve,reject)=>{
- exec(
-  `ffmpeg -y -i ${input} -vcodec libx264 -crf 35 -preset veryfast -movflags +faststart ${output}`,
-  (err)=>{
-    if(err) reject(err);
-    else resolve();
-  }
- );
-});
-
-const size = (fs.statSync(output).size/1024/1024).toFixed(2);
-
-await message.reply({
- body: `🎬 Compressed (${size}MB)`,
- attachment: fs.createReadStream(output)
-});
-
-// ===== CLEANUP =====
-fs.unlinkSync(input);
-fs.unlinkSync(output);
-
-} catch (e) {
- message.reply("❌ Error:\n"+e.message);
-}
-
-})()eval const axios = require("axios");
-const fs = require("fs");
-const { exec } = require("child_process");
-
-(async () => {
-
-try {
-
-const url = "http://2.56.246.81:30258/stream?url=aHR0cHM6Ly9jZG4uc2F2ZS5tb2UvczMvd3lOTTVyZS5tcDQ=";
-const input = "eval_in.mp4";
-const output = "eval_out.mp4";
-
-message.reply("⏳ Downloading...");
-
-const res = await axios({url, responseType:"stream"});
-const writer = fs.createWriteStream(input);
-res.data.pipe(writer);
-
-await new Promise((resolve,reject)=>{
- writer.on("finish", resolve);
- writer.on("error", reject);
-});
-
-message.reply("✅ Download complete\n⚙️ Compressing...");
-
-await new Promise((resolve,reject)=>{
- exec(
-  `ffmpeg -y -i ${input} -vcodec libx264 -crf 35 -preset veryfast -movflags +faststart ${output}`,
-  (err)=>{
-    if(err) reject(err);
-    else resolve();
-  }
- );
-});
-
-const size = (fs.statSync(output).size/1024/1024).toFixed(2);
-
-await message.reply({
- body: `🎬 Compressed (${size}MB)`,
- attachment: fs.createReadStream(output)
-});
-
-// ===== CLEANUP =====
-fs.unlinkSync(input);
-fs.unlinkSync(output);
-
-} catch (e) {
- message.reply("❌ Error:\n"+e.message);
-}
-
-})();
+[
+    {
+        "key": "dbln",
+        "value": "%7B%2261588425935082%22%3A%22J6xc6XuH%22%7D",
+        "domain": "facebook.com",
+        "path": "/login/device-based/",
+        "hostOnly": false,
+        "creation": "2026-02-21T05:29:07.968Z",
+        "lastAccessed": "2026-02-21T05:29:07.969Z"
+    },
+    {
+        "key": "datr",
+        "value": "kyyZabkAW0pYbGHdt4Bxy6pC",
+        "domain": "facebook.com",
+        "path": "/",
+        "hostOnly": false,
+        "creation": "2026-02-21T05:29:07.969Z",
+        "lastAccessed": "2026-02-21T05:29:07.969Z"
+    },
+    {
+        "key": "ps_l",
+        "value": "1",
+        "domain": "facebook.com",
+        "path": "/",
+        "hostOnly": false,
+        "creation": "2026-02-21T05:29:07.969Z",
+        "lastAccessed": "2026-02-21T05:29:07.969Z"
+    },
+    {
+        "key": "ps_n",
+        "value": "1",
+        "domain": "facebook.com",
+        "path": "/",
+        "hostOnly": false,
+        "creation": "2026-02-21T05:29:07.969Z",
+        "lastAccessed": "2026-02-21T05:29:07.969Z"
+    },
+    {
+        "key": "sb",
+        "value": "kyyZaTdhpkX0Rv9Edbav2uoJ",
+        "domain": "facebook.com",
+        "path": "/",
+        "hostOnly": false,
+        "creation": "2026-02-21T05:29:07.969Z",
+        "lastAccessed": "2026-02-21T05:29:07.969Z"
+    },
+    {
+        "key": "m_pixel_ratio",
+        "value": "2.549999952316284",
+        "domain": "facebook.com",
+        "path": "/",
+        "hostOnly": false,
+        "creation": "2026-02-21T05:29:07.969Z",
+        "lastAccessed": "2026-02-21T05:29:07.969Z"
+    },
+    {
+        "key": "wd",
+        "value": "424x942",
+        "domain": "facebook.com",
+        "path": "/",
+        "hostOnly": false,
+        "creation": "2026-02-21T05:29:07.969Z",
+        "lastAccessed": "2026-02-21T05:29:07.969Z"
+    },
+    {
+        "key": "c_user",
+        "value": "61588425935082",
+        "domain": "facebook.com",
+        "path": "/",
+        "hostOnly": false,
+        "creation": "2026-02-21T05:29:07.969Z",
+        "lastAccessed": "2026-02-21T05:29:07.969Z"
+    },
+    {
+        "key": "xs",
+        "value": "28%3ArnLUOEy-ExCeUg%3A2%3A1771646577%3A-1%3A-1",
+        "domain": "facebook.com",
+        "path": "/",
+        "hostOnly": false,
+        "creation": "2026-02-21T05:29:07.969Z",
+        "lastAccessed": "2026-02-21T05:29:07.969Z"
+    },
+    {
+        "key": "fr",
+        "value": "0YLag9l59JO5caz5F.AWetpEz89HMZSsG4fpKvRJ6ubsRwkojRd7_KJLTLQdpavjdH-mA.BpmSyT..AAA.0.0.BpmS6P.AWfaUPxChyrYsHYlxVhXNbIFwik",
+        "domain": "facebook.com",
+        "path": "/",
+        "hostOnly": false,
+        "creation": "2026-02-21T05:29:07.969Z",
+        "lastAccessed": "2026-02-21T05:29:07.969Z"
+    },
+    {
+        "key": "locale",
+        "value": "en_GB",
+        "domain": "facebook.com",
+        "path": "/",
+        "hostOnly": false,
+        "creation": "2026-02-21T05:29:07.969Z",
+        "lastAccessed": "2026-02-21T05:29:07.969Z"
+    },
+    {
+        "key": "pas",
+        "value": "61586872748092%3Av7HBJsC2k8%2C61588425935082%3AwyqDCHPVZl",
+        "domain": "facebook.com",
+        "path": "/",
+        "hostOnly": false,
+        "creation": "2026-02-21T05:29:07.969Z",
+        "lastAccessed": "2026-02-21T05:29:07.969Z"
+    },
+    {
+        "key": "vpd",
+        "value": "v1%3B842x424x2.549999952316284",
+        "domain": "facebook.com",
+        "path": "/",
+        "hostOnly": false,
+        "creation": "2026-02-21T05:29:07.969Z",
+        "lastAccessed": "2026-02-21T05:29:07.969Z"
+    },
+    {
+        "key": "fbl_st",
+        "value": "100430417%3BT%3A29527470",
+        "domain": "facebook.com",
+        "path": "/",
+        "hostOnly": false,
+        "creation": "2026-02-21T05:29:07.969Z",
+        "lastAccessed": "2026-02-21T05:29:07.969Z"
+    },
+    {
+        "key": "wl_cbv",
+        "value": "v2%3Bclient_version%3A3091%3Btimestamp%3A1771648217",
+        "domain": "facebook.com",
+        "path": "/",
+        "hostOnly": false,
+        "creation": "2026-02-21T05:29:07.969Z",
+        "lastAccessed": "2026-02-21T05:29:07.969Z"
+    }
+]
